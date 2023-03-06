@@ -43,7 +43,7 @@
                                         <span class="badge badge-warning">{{ $diagnosis->created_at->format('d m y') }} Pending </span>
                                         @endif
                                         @endforeach
-
+                                    </td>
                                     <td>{{ $visit->hospital->name ?? "N/A" }}</td>
                                     <td>
                                         @if ($visit->status)
@@ -53,6 +53,7 @@
                                         <span class="badge badge-success">Closed</span>
                                         @endif
                                     </td>
+                                    <td><a href="{{ route('doctor.diagnoses.create',['visit'=>$visit->id]) }}"><span class="badge badge-dark"><i class="fa fa-file"></i> Make Diagnosis</span></a></td>
                                     <td><a href="{{ route('doctor.visits.show',['visit'=>$visit->id]) }}"><i class="fa fa-eye"></i> View</a></td>
                                 </tr>
                                 @endforeach

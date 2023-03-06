@@ -19,7 +19,7 @@ return new class extends Migration
             $table->longText("prescription");
             $table->longText("regulation");
             $table->longText("message");
-            $table->longText("patient_comment");
+            $table->longText("patient_comment")->nullable();
             $table->integer("patient_rating");
             $table->boolean("status")->default(false);
             $table->timestamps();

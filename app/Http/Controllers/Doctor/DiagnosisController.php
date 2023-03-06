@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Doctor;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Diagnosis;
+use App\Models\Visits;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DiagnosisController extends BaseController
 {
@@ -28,9 +30,12 @@ class DiagnosisController extends BaseController
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($visit)
     {
         //
+        $visit = Visits::where('id', $visit)->with('patient.user')->with('appointment')->first();
+        $createdata['visit'] = $visit;
+        return view('doctor.diagnosis.create', compact('createdata'));
     }
 
     /**
@@ -39,6 +44,36 @@ class DiagnosisController extends BaseController
     public function store(Request $request)
     {
         //
+
+
+        $validator = Validator::make($request->input(), [
+            'visit_id' => 'required',
+            'diagnosis' => 'required',
+            'prescription' => 'required',
+            'regulation' => 'required',
+            'message' => 'required',
+            'status' => 'required',
+        ]);
+
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $visit = Visits::where('id', $request->visit_id)->with('patient.user')->first();
+
+        $patient = $visit->patient;
+        $validated = $validator->safe();
+        $validated['patient_comment'] = "";
+        $validated['patient_rating'] = 0;
+        $validated['doctor_id'] = $this->doctor()->id;
+
+        $patient->diagnosis()->create(
+            $validated->all(),
+        );
+        return redirect(route('doctor.diagnoses.index'))->with('success', 'Diagnosis added successfully');
     }
 
     /**
@@ -92,4 +127,3 @@ class DiagnosisController extends BaseController
         return redirect(route('doctor.diagnoses.index'))->with('success', 'This item has been deleted successfully');
     }
 }
-

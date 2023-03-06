@@ -15,22 +15,48 @@
                 <div class="row mx-auto justify-content-center">
                     <h3 class="display-6">Fill the Visits form</h3>
                 </div>
-                <form action="{{ route('doctor.visits.store') }}" method="POST">
+                <form action="{{ route('doctor.diagnoses.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="doctor_comment">Doctor comment </label>
-                        <textarea name="doctor_comment" id="doctor_comment" class="form-control @error('doctor_comment') is-invalid @enderror" placeholder="Enter doctors comment here"></textarea>
-                        @error('doctor_comment')
+                        <label for="diagnosis">Doctor diagnosis </label>
+                        <textarea name="diagnosis" id="diagnosis" class="form-control @error('diagnosis') is-invalid @enderror" placeholder="Enter doctors diagnosis here">{{ old('diagnosis')}}</textarea>
+                        @error('diagnosis')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
-
+                    <div class="form-group">
+                        <label for="prescription">Doctor prescription </label>
+                        <textarea name="prescription" id="prescription" class="form-control @error('prescription') is-invalid @enderror" placeholder="Enter doctors prescription here">{{ old('prescription')}}</textarea>
+                        @error('prescription')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="regulation">Doctor regulation </label>
+                        <textarea name="regulation" id="regulation" class="form-control @error('regulation') is-invalid @enderror" placeholder="Enter doctors regulation here">{{ old('regulation')}}</textarea>
+                        @error('regulation')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Doctor message </label>
+                        <textarea name="message" id="message" class="form-control @error('message') is-invalid @enderror" placeholder="Enter doctors message here">{{ old('message')}}</textarea>
+                        @error('message')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                     <div class="form-group d-none" >
-                        <label for="appointment_id">Appointmet Id </label>
-                        <input name="appointment_id" type="appointment_id" value="{{  $createdata['appointment']->id}}" class="form-control @error('appointment_id') is-invalid @enderror" id="appointment_id" aria-describedby="appointment_id" placeholder="Enter appointment_id" required>
-                        @error('appointment_id')
+                        <label for="visit_id">Visit Id </label>
+                        <input name="visit_id" type="visit_id" value="{{  $createdata['visit']->id}}" class="form-control @error('visit_id') is-invalid @enderror" id="visit_id" aria-describedby="visit_id" placeholder="Enter visit_id" required>
+                        @error('visit_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
