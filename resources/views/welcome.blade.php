@@ -111,6 +111,21 @@
         </div>
     </div>
     <!--Services-->
+    <div class="row tile mt-5 ml-3 mr-5 ">
+        <div class="d-flex justify-content-center">
+            <div class="web mr-4">
+                <h3 class="display-4">Get Started now</h3>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="web ml-3">
+                <div class="web">
+                    <a href="{{ route('home') }}" class="btn btn-outline-dark" hr>Get Started</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Services-->
     <div class="row mx-auto justify-content-center mt-4 p-3">
         <div class="row justify-content-center">
             <div class="col-md-6 col-xl-6 d-flex justify-content-center">
