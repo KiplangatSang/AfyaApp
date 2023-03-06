@@ -23,6 +23,7 @@
                                     <th scope="col">Place</th>
                                     <th scope="col">Patient</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Visit</th>
                                     <th scope="col">View</th>
                                 </tr>
                             </thead>
@@ -43,6 +44,7 @@
                                         <span class="badge badge-success">Closed</span>
                                         @endif
                                     </td>
+                                    <td><a href="{{ route('doctor.visits.create',['appointment'=>$appointment->id]) }}"><span class="badge badge-dark"><i class="fa fa-file"></i> Make Visit</span></a></td>
                                     <td><a href="{{ route('doctor.appointments.show',['appointment'=>$appointment->id]) }}"><i class="fa fa-eye"></i> View</a></td>
                                 </tr>
                                 @endforeach

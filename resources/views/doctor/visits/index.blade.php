@@ -5,6 +5,7 @@
         <!--visit header-->
         <div class="container-fluid mt-5">
             <a href="" class="btn btn-warning m-2">View Upcoming visits</a>
+            <a href="{{ route('doctor.appointments.index') }}" class="btn btn-info m-2"> Create a visit</a>
         </div>
         <!--visit history-->
         <section>

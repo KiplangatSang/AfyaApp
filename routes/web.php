@@ -53,6 +53,7 @@ Route::prefix('/doctor')->name('doctor.')->middleware(['doctor',])->group(
 
         //Visits
         Route::resource('visits', VisitController::class);
+        Route::get('visits/create/{appointment}',[ VisitController::class,'create'])->name('visits.create');
 
         //diagnosis
         Route::resource('diagnoses', DiagnosisController::class);

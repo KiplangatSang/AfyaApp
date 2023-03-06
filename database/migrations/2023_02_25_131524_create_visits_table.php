@@ -16,11 +16,11 @@ return new class extends Migration
             $table->integer('appointment_id');
             $table->integer('doctor_id');
             $table->integer('patient_id');
-            $table->integer('hopsital_id');
+            $table->integer('hopsital_id')->default(1);
             $table->integer('diagnosis_id')->nullable();
             $table->longText('doctor_comment');
-            $table->longText('patient_comment');
-            $table->integer('patient_rating');
+            $table->longText('patient_comment')->nullable();;
+            $table->integer('patient_rating')->nullable();
             $table->boolean('status');
             $table->timestamps();
         });

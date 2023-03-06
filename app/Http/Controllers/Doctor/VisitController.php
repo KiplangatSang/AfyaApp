@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Models\Appointments;
+use App\Models\Patient;
 use App\Models\Visits;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class VisitController extends BaseController
 {
@@ -26,6 +29,7 @@ class VisitController extends BaseController
             ->with('doctor.user')
             ->with('diagnosis')
             ->with('hospital')
+            ->orderBy('created_at','DESC')
             ->get();
 
 
@@ -37,9 +41,12 @@ class VisitController extends BaseController
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($appointment)
     {
         //
+        $appointment = Appointments::where('id',$appointment)->with('patient.user')->first();
+        $createdata['appointment'] = $appointment;
+        return view('doctor.visits.create', compact('createdata'));
     }
 
     /**
@@ -48,7 +55,28 @@ class VisitController extends BaseController
     public function store(Request $request)
     {
         //
+        $validator = Validator::make($request->input(), [
+            'appointment_id' => 'required',
+            'doctor_comment' => 'required',
+            'status' => 'required',
+        ]);
 
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $appointment = Appointments::where('id',$request->appointment_id)->with('patient.user')->first();
+
+        $validated = $validator->safe();
+        $validated['patient_comment'] = "";
+        $validated['patient_rating'] = 0;
+        $validated['patient_id'] = $appointment->patient_id;
+
+        $this->doctor()->visits()->create(
+            $validated->all(),
+        );
+        return redirect(route('doctor.visits.index'))->with('success', 'Visit added successfully');
     }
 
     /**
@@ -109,4 +137,3 @@ class VisitController extends BaseController
         return redirect(route('doctor.visits.index'))->with('success', 'This item has been deleted successfully');
     }
 }
-

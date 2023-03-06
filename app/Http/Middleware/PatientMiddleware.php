@@ -15,7 +15,7 @@ class PatientMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ( auth()->user()->role !== 1) {
+        if ( auth()->user()->role != 1) {
             return back()->with('You are not registered as a patient');
         }
         return $next($request);

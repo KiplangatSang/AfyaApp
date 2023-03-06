@@ -16,7 +16,7 @@ class DoctorMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-        if ( auth()->user()->role !== 2) {
+        if ( auth()->user()->role != 2) {
             return back()->with('You are not registered as a doctor');
         }
         return $next($request);
