@@ -31,8 +31,8 @@ $rating = $visit->patient_rating;
                         @if ($visit->doctor_comment)
                         <p scope="col">Doctor comment : {{ $visit->doctor_comment?? "N/A" }}</p>
                         @endif
-                        @if ($visit->patient_comment)
-                        <p scope="col">Patient comment: {{ $visit->patient_comment?? "N/A" }}</p>
+                        @if ($visit->doctor_comment)
+                        <p scope="col">Patient comment: {{ $visit->doctor_comment?? "N/A" }}</p>
                         @endif
                         @if ($visit->patient_rating)
                         <p scope="col">
@@ -51,9 +51,7 @@ $rating = $visit->patient_rating;
         <!--visit form-->
         <section class=" m-5" id="visit-form">
             <div class="row justify-content-center text-center">
-                <p class="display-5"> Thousands of highly rated,
-                    verified Nurses</p>
-                <p> Specialties include: All Nurse, Symptoms, Diagnosis, Treatment, Medication, Prevention, Other Health and more.</p>
+                <p class="display-5"> Patient Visits Form
             </div>
             <div class="row tile">
                 <div class="row mx-auto justify-content-center">
@@ -63,14 +61,14 @@ $rating = $visit->patient_rating;
                     @method('PUT')
                     @csrf
                     <div class="form-group">
-                        <label for="patient_comment">Patient comment </label>
-                        <textarea class="form-control" name="patient_comment" id="patient_comment" placeholder="Leave your comment here">{{ $visit->patient_comment }}</textarea>
-                        @error('patient_comment')
+                        <label for="doctor_comment">Doctor comment </label>
+                        <textarea class="form-control" name="doctor_comment" id="doctor_comment" placeholder="Leave your comment here">{{ $visit->doctor_comment }}</textarea>
+                        @error('doctor_comment')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                        <small id="patient_comment" class="d-none form-text text-muted">Well never share your visit doctor comment with anyone else.</small>
+                        <small id="doctor_comment" class="d-none form-text text-muted">Well never share your visit doctor comment with anyone else.</small>
                     </div>
 
                     <div class="form-group">
