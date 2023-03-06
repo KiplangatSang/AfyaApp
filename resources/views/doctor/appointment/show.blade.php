@@ -9,6 +9,7 @@ $appointment = $appointmentdata['appointment']
         <div class="container-fluid mt-5">
             <a href="{{ route('doctor.appointments.index') }}" class="btn btn-danger m-2">Back</a>
             <a href="{{ route('doctor.appointments.edit',['appointment'=>$appointment->id]) }}" class="btn btn-info m-2">Edit</a>
+            <a href="{{ route('doctor.visits.create',['appointment'=>$appointment->id]) }}" class="btn btn-dark m-2"><i class="fa fa-file"></i> Make Visit</a>
         </div>
         <!--appointment history-->
         <section>

@@ -9,11 +9,11 @@
         <!--appointment form-->
         <section class=" m-5" id="appointment-form">
             <div class="row justify-content-center text-center">
-                <p class="display-5">Enter the visits details here</p>
+                <p class="display-5">Enter the Diagnosis details here</p>
             </div>
             <div class="row tile mt-3">
                 <div class="row mx-auto justify-content-center">
-                    <h3 class="display-6">Fill the Visits form</h3>
+                    <h3 class="display-6">Fill the Diagnosis form</h3>
                 </div>
                 <form action="{{ route('doctor.diagnoses.store') }}" method="POST">
                     @csrf

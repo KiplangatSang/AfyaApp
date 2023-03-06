@@ -84,7 +84,7 @@ $diagnosis = $diagnosisdata['diagnosis']
                         </span>
                         @enderror
                     </div>
-                    <!--patient-->
+                    <!--status-->
                     <div class="form-group">
                         <label for="status">Status</label>
                         <select class="form-control form-control @error('status') is-invalid @enderror" id="status" name="status" required>

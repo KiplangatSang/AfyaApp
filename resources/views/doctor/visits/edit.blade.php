@@ -70,11 +70,30 @@ $rating = $visit->patient_rating;
                         @enderror
                         <small id="doctor_comment" class="d-none form-text text-muted">Well never share your visit doctor comment with anyone else.</small>
                     </div>
+                    <!--status-->
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select class="form-control form-control @error('status') is-invalid @enderror" id="status" name="status" required>
+                            <option value="{{ $visit->status}}" selected disabled>
+                                @if ( $visit->status)
+                                Open
+                                @else
+                                Closed
+                                @endif
+                            </option>
+                            <option value="1">Open</option>
+                            <option value="0">Closed</option>
+                        </select>
+                        @error('status')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
 
                     <div class="form-group">
                         <input name="patient_rating" type="patient_rating" value="{{ $visit->patient_rating }}" class="form-control @error('patient_rating') is-invalid @enderror d-none" id="rating" aria-describedby="patient_rating" placeholder="Enter patient_rating" required>
                         <p class="rate">
-
                             Patient rating: @include('inc.rating_edit')
                         </p>
                         @error('patient_rating')

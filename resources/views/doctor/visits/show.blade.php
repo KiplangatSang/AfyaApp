@@ -10,6 +10,7 @@ $visit = $visitdata['visit']
             <a href="{{ route('doctor.visits.index') }}" class="btn btn-primary m-2">Back</a>
             <a href="{{ route('doctor.visits.edit',['visit'=>$visit->id]) }}" class="btn btn-info m-2">Edit</a>
             <a onclick="document.getElementById('visit-delete-form').submit()" class="btn btn-danger m-2">Delete this item</a>
+            <a href="{{ route('doctor.diagnoses.create',['visit'=>$visit->id]) }}" class="btn btn-dark m-2"><i class="fa fa-file"></i> Make Diagnosis</a>
             <form id="visit-delete-form" action="{{ route('doctor.visits.destroy',['visit'=>$visit->id]) }}" class="d-none" method="POST">
                 @method("DELETE")
                 @csrf
