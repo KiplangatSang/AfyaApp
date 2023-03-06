@@ -20,9 +20,9 @@ return new class extends Migration
             $table->longText("time");
             $table->longText("donor_message");
             $table->longText("message")->nullable();
-            $table->boolean("tested")->default(false);
-            $table->boolean("accepted")->default(false);
-            $table->boolean("status")->default(false);
+            $table->boolean("tested")->nullable();
+            $table->boolean("accepted")->nullable();
+            $table->boolean("status")->nullable();
             $table->timestamps();
         });
     }

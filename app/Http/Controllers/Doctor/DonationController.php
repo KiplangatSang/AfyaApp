@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Doctor;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Donation;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 
 class DonationController extends BaseController
@@ -19,7 +20,7 @@ class DonationController extends BaseController
      */
     public function index()
     {
-        $donations =  $this->doctor()->donations()->with('patients.user')->with('hospital')->with('doctor.user')->get();
+        $donations =  Donation::with('patients.user')->with('hospital')->with('doctor.user')->orderBy('created_at',"DESC")->get();
         $donationsdata['donations'] = $donations;
         return view('doctor.donation.index', compact('donationsdata'));
     }
@@ -30,7 +31,12 @@ class DonationController extends BaseController
     public function create()
     {
         //
-        return view('doctor.donation.create');
+
+        $patients = Patient::with('user')
+            ->with('appointments')
+            ->get();
+        $createdata['patients'] = $patients;
+        return view('doctor.donation.create', compact('createdata'));
     }
 
     /**
@@ -44,6 +50,7 @@ class DonationController extends BaseController
             'organ' => 'required',
             'time' => 'required',
             'date' => 'required',
+            'patient_id' => 'required',
             'terms_and_conditions' => 'required',
         ]);
         $this->doctor()->donations()->create(
@@ -59,6 +66,7 @@ class DonationController extends BaseController
     {
         //
         $donation = Donation::where('id', $id)->first();
+
         $donationdata['donation'] = $donation;
         return view('doctor.donation.show', compact('donationdata'));
     }

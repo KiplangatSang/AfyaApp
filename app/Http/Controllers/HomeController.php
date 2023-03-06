@@ -23,7 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         if (auth()->user()->role == 1) {
+           // dd(auth()->user()->with('patient')->first());
             return view('patient.home');
         } else if (auth()->user()->role == 2) {
             return view('doctor.home');

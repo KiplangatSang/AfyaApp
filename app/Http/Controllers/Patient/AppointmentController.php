@@ -25,8 +25,6 @@ class AppointmentController extends BaseController
      */
     public function index()
     {
-        //
-        //  $appointments = $this->patient()->appointments()->with('doctor.user')->get();
         $appointments = $this->patient()->appointments()->with('doctor.user')->orderBy('status', 'DESC')->orderBy('created_at', 'DESC')->get();
         $appointmentdata['appointments'] = $appointments;
         return view("patient.appointment.index", compact('appointmentdata'));

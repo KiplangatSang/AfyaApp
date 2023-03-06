@@ -8,6 +8,7 @@ use App\Helpers\Billing\PaymentGatewayContract;
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Landlord\PlotSessionController;
 use App\Http\Controllers\Retailer\Transactions\TransactionController;
+use App\Models\Patient;
 use App\Models\User;
 use App\Repositories\AppRepository;
 use App\Repositories\FirebaseRepository;
@@ -28,12 +29,6 @@ class BaseController extends Controller
 
     //gets retails list sent to home controller for choosing
 
-    public function housePagination()
-    {
-        # code...
-        $housePagination = 20;
-        return $housePagination;
-    }
 
     public function formatPhoneNumber($code, $phone_number)
     {
@@ -73,16 +68,10 @@ class BaseController extends Controller
 
     public function patient()
     {
-        $patient = $this->user()->patient()->where('user_id', auth()->id())->first();
+        $patient = $this->user()->patient()->first();
         return $patient;
     }
 
-    public function getBaseImages()
-    {
-        # code...
-        $baseImages = $this->appRepository()->getBaseImages();
-        return $baseImages;
-    }
 
     public function sendResponse($result, $message)
     {
@@ -118,13 +107,4 @@ class BaseController extends Controller
         return response()->json($response, $code);
     }
 
-    public function saveFile($folder, $file)
-    {
-        # code...
-
-        $user = $this->user();
-
-        $fileNameToStore = "";
-        return $fileNameToStore;
-    }
 }

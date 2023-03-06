@@ -99,11 +99,12 @@ class RegisterController extends BaseController
         if (!$user)
             return back()->with('error', "Registration Failed!!");
 
-        $user = User::whereIn('email', $user)->first();
+        $user = User::where('email', $user->email)->first();
         try {
             $result = $this->createUserAccounts($user);
         } catch (Exception $e) {
             info($e->getMessage());
+            dd($e->getMessage());
             return back()->with('error', "Failed to create associated accounts");
         }
 
@@ -136,11 +137,10 @@ class RegisterController extends BaseController
 
     public function createProfile(User $user)
     {
-        $images = $this->getBaseImages();
         # code...
         $result = $user->profile()->create([
             "user_id" => $user->id,
-            "profile_image" => $images['noprofile'],
+            "profile_image" => "",
         ]);
 
         return  $result;
@@ -149,14 +149,21 @@ class RegisterController extends BaseController
     public function doctorCreation(User $user)
     {
         # code...
-        $result =  $user->doctor()->create();
+        $result =  $user->doctor()->create(
+            ['hospital_id'=>1,
+            ]
+        );
         return $result;
     }
 
     public function patientCreation(User $user)
     {
         # code...
-        $result =  $user->patient()->create();
+        $result =  $user->patient()->create(
+            [
+                'hospital_id'=>1,
+            ]
+        );
         return $result;
     }
 }

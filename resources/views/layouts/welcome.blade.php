@@ -16,7 +16,7 @@
 
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    {{--  @vite(['resources/css/app.css', 'resources/js/app.js'])  --}}
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js'])  --}}
     <!-- Styles -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" />
@@ -73,25 +73,19 @@
                         </div>
                         @endif
                         @else
+
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                Search <i class="fa fa-search"></i> <span class="caret"></span>
+                                <i class="fa-solid fa-bell"></i><small><span class="caret text-danger"><strong>{{ count(auth()->user()->unreadNotifications) }}</strong></span></small>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right px-2" aria-labelledby="navbarDropdown">
-                                <form class="form-inline  ">
-                                    <input class="form-control mx-auto p-3" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-outline-info  mt-2" type="submit">Search</button>
-                                </form>
+                            <div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
                                 <ul class="list-group mt-2">
-                                    <li class="list-group-item disabled text-danger">Your Recent Searches</li>
-                                    <li class="list-group-item"> <a href="{{ route('welcome') }}">search</a> </li>
-                                </ul>
-                            </div>
+                                    <li class="list-group-item disabled text-danger">Recent notifications</li>
+                                    @foreach (auth()->user()->unreadNotifications->take(4) as $notification)
+                                    <li class="list-group-item"><a href="{{ route('notifications.show',['notification'=>$notification->id]) }}">{{ $notification->data['message']}}</a> </li>
+                                    @endforeach
+                                </ul </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('welcome') }}"><i class="fa-solid fa-bell"></i><small><span class="caret text-danger"><strong>1</strong> </span></small></a>
-                        </li>
-
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->username ?? 'Guest' }} <span class="caret"></span>

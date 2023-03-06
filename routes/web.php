@@ -8,6 +8,7 @@ use App\Http\Controllers\Doctor\MessageController;
 use App\Http\Controllers\Doctor\VisitController;
 use App\Http\Controllers\Hospital\DonationController as HospitalDonationController;
 use App\Http\Controllers\Hospital\VisitController as HospitalVisitController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Patient\AppointmentController as PatientAppointmentController;
 use App\Http\Controllers\Patient\DiagnosisController as PatientDiagnosisController;
 use App\Http\Controllers\Patient\DonationController;
@@ -40,6 +41,9 @@ Route::get('/schedule', function () {
       return view('datepicker');
 });
 Auth::routes();
+
+Route::get('/notifications/{notification}', [NotificationController::class, 'show'])->name('notifications.show');
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::prefix('/doctor')->name('doctor.')->middleware(['doctor',])->group(

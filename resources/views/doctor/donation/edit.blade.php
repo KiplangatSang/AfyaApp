@@ -9,49 +9,10 @@ $donation = $donationdata['donation']
         <div class="container-fluid mt-5">
             <a href="{{ route('doctor.donations.index') }}" class="btn btn-warning m-2">View Upcoming</a>
         </div>
-        <!--donation item-->
-        <section>
-            <div class="container-fluid mt-4">
-                <!--donation item-->
-                <div class="col-md-6 col-xl-12 item">
-                    <div class="row">
-                        <p scope="col">id : {{ $donation->id }}</p>
-                        <p scope="col">Patient : {{ $donation->patient_id }}</p>
-                        <p scope="col">Hospital : {{ $donation->hospital_id }}</p>
-                        <p scope="col">Doctor : {{ $donation->doctor_id }}</p>
-                        <p scope="col">Time {{ date('H:i D d-m-Y', strtotime($donation->time)) }}</p>
-                        <p scope="col">Organ : {{ $donation->organ  }}</p>
-                        <p scope="col">Donor message : {{ $donation->donor_message?? "N/A" }}</p>
-                        <p scope="col">Message : {{ $donation->message?? "N/A" }}</p>
-                        <p scope="col">Tested : {{ $donation->tested?? "N/A" }}</p>
-                        <p scope="col">Acceptance : {{ $donation->accepted?? "N/A" }}</p>
-                        <p scope="col">Status : @if ($donation->status)
-                            <span class="badge badge-info">Open</span>
-
-                            @else
-                            <span class="badge badge-success">Closed</span>
-                            @endif</p>
-                        @if ($donation->message)
-                        <p scope="col">Doctor message : {{ $donation->message?? "N/A" }}</p>
-                        @endif
-                        @if ($donation->patient_comment)
-                        <p scope="col">Patient comment: {{ $donation->patient_comment?? "N/A" }}</p>
-                        @endif
-                        @if ($donation->patient_rating)
-                        <p scope="col">Patient rating: @include('inc.rating')</p>
-                        @endif
-                        </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
         <!--donation form-->
         <section class=" m-5" id="donation-form">
             <div class="row justify-content-center text-center">
-                <p class="display-5"> Thousands of highly rated,
-                    verified Nurses</p>
-                <p> Specialties include: All Nurse, Symptoms, Diagnosis, Treatment, Medication, Prevention, Other Health and more.</p>
+                <p class="display-5"> Edit Donor Form</p>
             </div>
             <div class="row tile">
                 <div class="d-flex justify-content-center mb-4">
@@ -115,6 +76,66 @@ $donation = $donationdata['donation']
                         </span>
                         @enderror
                         <br>
+                    </div>
+                    <!--tested-->
+                    <div class="form-group">
+                        <label for="tested">Status</label>
+                        <select class="form-control form-control @error('tested') is-invalid @enderror" id="tested" name="tested" required>
+                            <option value="{{ $donation->tested}}" selected disabled>
+                                @if ( $donation->tested)
+                                Open
+                                @else
+                                Closed
+                                @endif
+                            </option>
+                            <option value="1">Open</option>
+                            <option value="0">Closed</option>
+                        </select>
+                        @error('tested')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <!--accepted-->
+                    <div class="form-group">
+                        <label for="accepted">Status</label>
+                        <select class="form-control form-control @error('accepted') is-invalid @enderror" id="accepted" name="accepted" required>
+                            <option value="{{ $doantion->accepted}}" selected disabled>
+                                @if ( $doantion->accepted)
+                                Open
+                                @else
+                                Closed
+                                @endif
+                            </option>
+                            <option value="1">Open</option>
+                            <option value="0">Closed</option>
+                        </select>
+                        @error('accepted')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <!--status-->
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select class="form-control form-control @error('status') is-invalid @enderror" id="status" name="status" required>
+                            <option value="{{ $visit->status}}" selected disabled>
+                                @if ( $visit->status)
+                                Open
+                                @else
+                                Closed
+                                @endif
+                            </option>
+                            <option value="1">Open</option>
+                            <option value="0">Closed</option>
+                        </select>
+                        @error('status')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <br>
                     <button type="submit" class="btn btn-primary">Submit</button>

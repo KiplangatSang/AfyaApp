@@ -22,8 +22,8 @@ $donation = $donationdata['donation']
                 <div class="col-md-6 col-xl-12 item">
                     <div class="row">
                         <p scope="col">id :#{{ $donation->id }}</p>
-                        <p scope="col">Donor  : {{ $donation->patients->user->username  ?? "N/A" }}</p>
-                        <p scope="col">Hospital  :{{ $donation->hospital->name  ?? "N/A" }}</p>
+                        <p scope="col">Donor : {{ $donation->patients->user->username  ?? "N/A" }}</p>
+                        <p scope="col">Hospital :{{ $donation->hospital->name  ?? "N/A" }}</p>
                         <p scope="col">Doctor :{{ $donation->doctor->user->username ?? "N/A" }}</p>
                         <p scope="col">Time {{ date('H:i D d-m-Y', strtotime($donation->time)) }}</p>
                         <p scope="col">Organ : {{ $donation->organ  }}</p>
@@ -31,18 +31,27 @@ $donation = $donationdata['donation']
                         <p scope="col">Message : {{ $donation->message?? "N/A" }}</p>
                         <p scope="col">Tested : @if ($donation->tested)
                             <span class="badge badge-success">Test succes</span>
+                            @elseif ($donation->tested == null)
+                            <span class="badge badge-info">N/A</span>
                             @else
                             <span class="badge badge-danger">Test Failed</span>
-                            @endif</p>
-                        <p scope="col">Acceptance :@if ($donation->accepted)
+                            @endif
+                        </p>
+                        <p scope="col">Acceptance :
+                            @if ($donation->accepted)
                             <span class="badge badge-success">Donation Accepted</span>
+                            @elseif ($donation->accepted == null)
+                            <span class="badge badge-info">N/A</span>
                             @else
-                            <span class="badge badge-danger">Process rejected</span>
+                            <span class="badge badge-danger">Test Failed</span>
                             @endif
 
                         </p>
-                        <p scope="col">Status : @if ($donation->status)
+                        <p scope="col">Status :
+                            @if ($donation->status)
                             <span class="badge badge-success">Donation Processed</span>
+                            @elseif ($donation->status == null)
+                            <span class="badge badge-info">N/A</span>
                             @else
                             <span class="badge badge-danger">Donation rejected</span>
                             @endif

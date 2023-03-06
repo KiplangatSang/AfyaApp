@@ -1,5 +1,8 @@
 @extends('layouts.doctor')
 @section('page')
+@php
+$patients = $createdata['patients'];
+@endphp
 <div class="container-fluid bg-light">
     <section>
         <!--donations header-->
@@ -9,9 +12,7 @@
         <!--donations form-->
         <section class=" m-5" id="donations-form">
             <div class="row justify-content-center text-center">
-                <p class="display-5"> Thousands of highly rated,
-                    verified Nurses</p>
-                <p> Specialties include: All Nurse, Symptoms, Diagnosis, Treatment, Medication, Prevention, Other Health and more.</p>
+                <p class="display-5">Fill the form to register a donor</p>
             </div>
             <div class="row tile">
                 <div class="row mx-auto justify-content-center">
@@ -20,8 +21,8 @@
                 <form action="{{ route('doctor.donations.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="donor_message">Message</label>
-                        <textarea name="donor_message" class="form-control @error('donor_message') is-invalid @enderror" value="{{ old('donor_message') }}" id="donor_message" placeholder="Enter message"></textarea>
+                        <label for="donor_message">Donor Message</label>
+                        <textarea name="donor_message" class="form-control @error('donor_message') is-invalid @enderror" value="{{ old('donor_message') }}" id="donor_message" placeholder="Enter donor's message"></textarea>
                         @error('donor_message')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -71,6 +72,20 @@
                         </span>
                         @enderror
                         <br>
+                    </div>
+                    <!--patient-->
+                    <div class="form-group">
+                        <label for="patientselect">Patient</label>
+                        <select class="form-control form-control @error('patient_id') is-invalid @enderror" id="patientselect" name="patient_id" required>
+                            @foreach ( $createdata['patients'] as $patient)
+                            <option value="{{ $patient->id }}">{{ $patient->user->username}}</option>
+                            @endforeach
+                        </select>
+                        @error('patient_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="form-check">
                         <input name="terms_and_conditions" type="checkbox" class="@error('terms_and_conditions') is-invalid @enderror form-check-input" id="terms_and_conditions" required>

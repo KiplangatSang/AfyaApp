@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Doctor;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Messages;
+use App\Models\Patient;
+use App\Notifications\PatientMessageNotification;
 use Illuminate\Http\Request;
 
 class MessageController extends BaseController
@@ -20,7 +22,7 @@ class MessageController extends BaseController
     public function index()
     {
         //
-        $messages = Messages::where('doctor_id', auth()->id())->orWhere('doctor_id',null)->orderBy('created_at', 'DESC')->orderBy('doctor_id', 'ASC')->get();
+        $messages = Messages::where('doctor_id', auth()->id())->orWhere('doctor_id', null)->orderBy('created_at', 'DESC')->orderBy('doctor_id', 'ASC')->get();
         $messagesdata['messages'] = $messages;
         $messagesdata['message'] = $messages->where('doctor_id', auth()->id())->first();
         return view('doctor.messages.messages', compact('messagesdata'));
@@ -51,6 +53,8 @@ class MessageController extends BaseController
         if (!$result)
             return back()->with('Sorry! We could not send your message');
 
+        $this->sendNotification($result);
+
         return redirect(route('doctor.messages.index'))->with('Success! Message sent. Await response');
     }
     /**
@@ -59,7 +63,7 @@ class MessageController extends BaseController
     public function show(string $id)
     {
         $message = Messages::where('id', $id)->orderBy('created_at', 'ASC')->with('patient.user')->first();
-        $messages = Messages::where('doctor_id', auth()->id())->orWhere('doctor_id',null)->orderBy('created_at', 'DESC')->orderBy('doctor_id', 'ASC')->get();
+        $messages = Messages::where('doctor_id', auth()->id())->orWhere('doctor_id', null)->orderBy('created_at', 'DESC')->orderBy('doctor_id', 'ASC')->get();
         $messagesdata['messages'] = $messages;
         $messagesdata['message'] = $message;
         return view('doctor.messages.messages', compact('messagesdata'));
@@ -100,6 +104,8 @@ class MessageController extends BaseController
         );
         if (!$result)
             return back()->with('error', 'Message cannot be sent');
+
+        $this->sendNotification($message);
         return redirect(route('doctor.messages.show', ['message' => $id]))->with('success', 'Message sent');
     }
 
@@ -113,5 +119,34 @@ class MessageController extends BaseController
         if (!$result)
             return back()->with('error', 'This item could not be deleted');
         return redirect(route('doctor.messages.index'))->with('success', 'This item has been deleted successfully');
+    }
+
+    public function sendNotification($message)
+    {
+        if ($message->patient_id) {
+            $this->notifyPatient($message->patient_id, $message);
+        } else {
+            $this->notifyPatients($message);
+        }
+
+        return true;
+    }
+
+    public function notifyPatient($patient_id, $message)
+    {
+        $patient = Patient::where('id', $patient_id)->with('user')->first();
+        $patient->user->notify(new PatientMessageNotification($message));
+        return true;
+    }
+
+    public function notifyPatients($message)
+    {
+        # code...
+        $patients = Patient::with('user')->get();
+        foreach ($patients as $patients) {
+            // dd($patients->user);
+            $patients->user->notify(new PatientMessageNotification($message));
+        }
+        return true;
     }
 }

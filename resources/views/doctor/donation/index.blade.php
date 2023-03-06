@@ -41,6 +41,8 @@
                                     <td>
                                         @if ($donation->tested)
                                         <span class="badge badge-success">Test succes</span>
+                                        @elseif ($donation->tested == null)
+                                        <span class="badge badge-info">N/A</span>
                                         @else
                                         <span class="badge badge-danger">Test Failed</span>
                                         @endif
@@ -48,13 +50,17 @@
                                     <td>
                                         @if ($donation->accepted)
                                         <span class="badge badge-success">Donation Accepted</span>
+                                        @elseif ($donation->accepted == null)
+                                        <span class="badge badge-info">N/A</span>
                                         @else
-                                        <span class="badge badge-danger">Process rejected</span>
+                                        <span class="badge badge-danger">Test Failed</span>
                                         @endif
                                     </td>
                                     <td>
                                         @if ($donation->status)
                                         <span class="badge badge-success">Donation Processed</span>
+                                        @elseif ($donation->status == null)
+                                        <span class="badge badge-info">N/A</span>
                                         @else
                                         <span class="badge badge-danger">Donation rejected</span>
                                         @endif
