@@ -39,9 +39,7 @@ $diagnosis = $diagnosisdata['diagnosis']
         <!--diagnosis form-->
         <section class=" m-5" id="diagnosis-form">
             <div class="row justify-content-center text-center">
-                <p class="display-5"> Thousands of highly rated,
-                    verified Nurses</p>
-                <p> Specialties include: All Nurse, Symptoms, Diagnosis, Treatment, Medication, Prevention, Other Health and more.</p>
+                <p class="display-5"> Edit Patient Diagnosis Forms</p>
             </div>
             <div class="row tile">
                 <div class="row mx-auto justify-content-center">
@@ -51,26 +49,62 @@ $diagnosis = $diagnosisdata['diagnosis']
                     @method('PUT')
                     @csrf
                     <div class="form-group">
-                        <label for="patient_comment">Patient comment </label>
-                        <textarea class="form-control" name="patient_comment" id="patient_comment" placeholder="Leave your comment here">{{ $diagnosis->patient_comment }}</textarea>
-                        @error('patient_comment')
+                        <label for="diagnosis">Doctor diagnosis </label>
+                        <textarea name="diagnosis" id="diagnosis" class="form-control @error('diagnosis') is-invalid @enderror" placeholder="Enter doctors diagnosis here">{{ $diagnosis->diagnosis}}</textarea>
+                        @error('diagnosis')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                        <small id="patient_comment" class="form-text text-muted">Well never share your diagnosis doctor comment with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="prescription">Doctor prescription </label>
+                        <textarea name="prescription" id="prescription" class="form-control @error('prescription') is-invalid @enderror" placeholder="Enter doctors prescription here">{{ $diagnosis->prescription}}</textarea>
+                        @error('prescription')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="regulation">Doctor regulation </label>
+                        <textarea name="regulation" id="regulation" class="form-control @error('regulation') is-invalid @enderror" placeholder="Enter doctors regulation here">{{ $diagnosis->regulation}}</textarea>
+                        @error('regulation')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Doctor message </label>
+                        <textarea name="message" id="message" class="form-control @error('message') is-invalid @enderror" placeholder="Enter doctors message here">{{ $diagnosis->message}}</textarea>
+                        @error('message')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <!--patient-->
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select class="form-control form-control @error('status') is-invalid @enderror" id="status" name="status" required>
+                            <option value="{{ $diagnosis->status}}" selected disabled>
+                                @if ( $diagnosis->status)
+                                Open
+                                @else
+                                Closed
+                                @endif
+                            </option>
+                            <option value="1">Open</option>
+                            <option value="0">Closed</option>
+                        </select>
+                        @error('status')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="patient_rating">Patient Rating </label>
-                        <input name="patient_rating" type="patient_rating" value="{{ $diagnosis->patient_rating }}" class="form-control @error('patient_rating') is-invalid @enderror" id="patient_rating" aria-describedby="patient_rating" placeholder="Enter patient_rating" required>
-                        @error('patient_rating')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                        <small name="patient_rating" id="patient_rating" class="form-text text-muted">Well never share your diagnosis patient_rating with anyone else.</small>
-                    </div>
                     <br>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
