@@ -226,6 +226,16 @@ section .title {
     text-decoration: none;
 }
 
-.get-started{
-    margin: 30px;
+
+.sidebar-opt{
+     border-top-right-radius: 30px;
+    background-color: rgb(53, 53, 53)!important;
+    color: white;
 }
+
+.sidebar-opt-doctor{
+    border-top-right-radius: 30px;
+   background-color: rgb(34, 87, 100)!important;
+   color: white;
+}
+
