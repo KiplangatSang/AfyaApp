@@ -1,5 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\AppointmentController as AdminAppointmentController;
+use App\Http\Controllers\Admin\DiagnosisController as AdminDiagnosisController;
+use App\Http\Controllers\Admin\DoctorController;
+use App\Http\Controllers\Admin\DonationController as AdminDonationController;
+use App\Http\Controllers\Admin\HospitalController as AdminHospitalController;
+use App\Http\Controllers\Admin\MessageController as AdminMessageController;
+use App\Http\Controllers\Admin\VisitController as AdminVisitController;
+use App\Http\Controllers\Auth\DoctorRegisterController;
 use App\Http\Controllers\Doctor\AppointmentController;
 use App\Http\Controllers\Doctor\DiagnosisController;
 use App\Http\Controllers\Doctor\DonationController as DoctorDonationController;
@@ -36,9 +44,9 @@ Route::get('/', function () {
 
 Route::get('/schedule', function () {
     $schedule = new Schedule();
-      $schedule->schedule();
+    $schedule->schedule();
 
-      return view('datepicker');
+    return view('datepicker');
 });
 Auth::routes();
 
@@ -57,11 +65,11 @@ Route::prefix('/doctor')->name('doctor.')->middleware(['doctor',])->group(
 
         //Visits
         Route::resource('visits', VisitController::class);
-        Route::get('visits/create/{appointment}',[ VisitController::class,'create'])->name('visits.create');
+        Route::get('visits/create/{appointment}', [VisitController::class, 'create'])->name('visits.create');
 
         //diagnosis
         Route::resource('diagnoses', DiagnosisController::class);
-        Route::get('diagnoses/create/{visit}',[ DiagnosisController::class,'create'])->name('diagnoses.create');
+        Route::get('diagnoses/create/{visit}', [DiagnosisController::class, 'create'])->name('diagnoses.create');
 
         //messages
         Route::resource('messages', MessageController::class);
@@ -103,3 +111,37 @@ Route::prefix('/hospital')->name('hospital.')->middleware(['hospital',])->group(
         Route::resource('donations', HospitalDonationController::class);
     }
 );
+
+Route::prefix('/admin')->name('admin.')->middleware(['admin',])->group(
+    function () {
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        //Appointments
+        Route::resource('appointments', AdminAppointmentController::class);
+
+        //Hospital
+        Route::resource('hospitals', AdminHospitalController::class);
+
+        //Visits
+        Route::resource('visits', AdminVisitController::class);
+        Route::get('visits/create/{appointment}', [AdminVisitController::class, 'create'])->name('visits.create');
+
+        //diagnosis
+        Route::resource('diagnoses', AdminDiagnosisController::class);
+        Route::get('diagnoses/create/{visit}', [AdminDiagnosisController::class, 'create'])->name('diagnoses.create');
+
+        //messages
+        Route::resource('messages', AdminMessageController::class);
+
+        //donantion
+        Route::resource('donations', AdminDonationController::class);
+
+        //doctor
+        Route::resource('doctors', DoctorController::class);
+    }
+);
+
+
+
+//doctor register account
+Route::get('doctor/register', [DoctorRegisterController::class, 'create'])->name('admin.doctors.register');
+Route::post('doctor/register', [DoctorRegisterController::class, 'store'])->name('admin.doctors.register');

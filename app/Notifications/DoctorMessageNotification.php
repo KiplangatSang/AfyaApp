@@ -33,7 +33,7 @@ class DoctorMessageNotification extends Notification
     public function toDatabase($notifiable)
     {
         return  [
-            'link' =>  route('doctor.messages'),
+            'link' => "/doctor/messages",
             'message' => "New patient message",
             'data' => json_encode($this->message),
         ];

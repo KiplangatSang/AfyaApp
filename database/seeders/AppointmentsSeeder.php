@@ -14,6 +14,6 @@ class AppointmentsSeeder extends Seeder
     public function run(): void
     {
         //
-         Appointments::factory(10)->hasDoctor(1)->hasPatient(1)->create();
+         Appointments::factory(4)->hasDoctor(1)->hasPatient(1)->create();
     }
 }

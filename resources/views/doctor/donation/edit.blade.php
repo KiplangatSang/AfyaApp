@@ -21,13 +21,14 @@ $donation = $donationdata['donation']
                 <form action="{{ route('doctor.donations.update',['donation'=>$donation->id]) }}" method="POST">
                     @method('PUT')
                     @csrf
-                    <label for="date">Choose a date and time you are comfortable with</label>
+                    <label for="date">Choose a date and time the donor is comfortable with</label>
                     <div class="row">
 
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="date">Date</label>
-                                <input name="date" value="{{ date('Y-m-d', strtotime($donation->time)) }}" type="date" class="form-control" id="date" placeholder="date" required>
+                                <input name="date" value="{{ date('Y-m-d', strtotime($donation->time)) }}" type="date"
+                                    class="form-control" id="date" placeholder="date" required>
                                 @error('date')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -38,7 +39,9 @@ $donation = $donationdata['donation']
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="time">Time</label>
-                                <input name="time" type="time" value="{{  date('H:i', strtotime($donation->time)) }}" class="form-control @error('time') is-invalid @enderror" id="time" placeholder="{{ date('H:i D d-m-Y', strtotime(now()))}}" required>
+                                <input name="time" type="time" value="{{  date('H:i', strtotime($donation->time)) }}"
+                                    class="form-control @error('time') is-invalid @enderror" id="time"
+                                    placeholder="{{ date('H:i D d-m-Y', strtotime(now()))}}" required>
                                 @error('time')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -50,18 +53,22 @@ $donation = $donationdata['donation']
 
                     <div class="form-group">
                         <label for="donor_message">Patient comment </label>
-                        <textarea class="form-control @error('donor_message') is-invalid @enderror" name="donor_message" id="donor_message" placeholder="Leave your comment here">{{ $donation->donor_message }}</textarea>
+                        <textarea class="form-control @error('donor_message') is-invalid @enderror" name="donor_message"
+                            id="donor_message"
+                            placeholder="Leave your comment here">{{ $donation->donor_message }}</textarea>
                         @error('donor_message')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                        <small id="donor_message" class="form-text text-muted">Well never share your donation doctor comment with anyone else.</small>
+                        <small id="donor_message" class="form-text text-muted">Well never share your donation doctor
+                            comment with anyone else.</small>
                     </div>
 
                     <div class="form-group">
                         <label for="organselect">Organ to donate</label>
-                        <select class="form-control @error('organ') is-invalid @enderror" id="organselect" name="organ" required>
+                        <select class="form-control @error('organ') is-invalid @enderror" id="organselect" name="organ"
+                            required>
                             <optgroup label="Select one">
                                 <option value="{{ $donation->organ }}">{{ $donation->organ }}</option>
                                 <option value="Blood">Blood</option>
@@ -80,7 +87,8 @@ $donation = $donationdata['donation']
                     <!--tested-->
                     <div class="form-group">
                         <label for="tested">Status</label>
-                        <select class="form-control form-control @error('tested') is-invalid @enderror" id="tested" name="tested" required>
+                        <select class="form-control form-control @error('tested') is-invalid @enderror" id="tested"
+                            name="tested" required>
                             <option value="{{ $donation->tested}}" selected disabled>
                                 @if ( $donation->tested)
                                 Open
@@ -100,9 +108,10 @@ $donation = $donationdata['donation']
                     <!--accepted-->
                     <div class="form-group">
                         <label for="accepted">Status</label>
-                        <select class="form-control form-control @error('accepted') is-invalid @enderror" id="accepted" name="accepted" required>
-                            <option value="{{ $doantion->accepted}}" selected disabled>
-                                @if ( $doantion->accepted)
+                        <select class="form-control form-control @error('accepted') is-invalid @enderror" id="accepted"
+                            name="accepted" required>
+                            <option value="{{ $donation->accepted}}" selected disabled>
+                                @if ( $donation->accepted)
                                 Open
                                 @else
                                 Closed
@@ -120,9 +129,10 @@ $donation = $donationdata['donation']
                     <!--status-->
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <select class="form-control form-control @error('status') is-invalid @enderror" id="status" name="status" required>
-                            <option value="{{ $visit->status}}" selected disabled>
-                                @if ( $visit->status)
+                        <select class="form-control form-control @error('status') is-invalid @enderror" id="status"
+                            name="status" required>
+                            <option value="{{ $donation->status}}" selected disabled>
+                                @if ( $donation->status)
                                 Open
                                 @else
                                 Closed

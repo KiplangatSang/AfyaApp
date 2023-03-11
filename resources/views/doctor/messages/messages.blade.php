@@ -80,7 +80,6 @@
                         </form>
                     </div>
                     <div class="bottom" id="bottom">
-                        <small>power</small>
                     </div>
                 </div>
                 @else

@@ -17,13 +17,14 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Appointment ID</th>
                                     <th scope="col">Title</th>
                                     <th scope="col">Place</th>
                                     <th scope="col">Doctor</th>
                                     <th scope="col">Patient</th>
                                     <th scope="col">Diagnosis</th>
-                                    <th scope="col">Hospital</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Diagnosis Action</th>
                                     <th scope="col">View</th>
                                 </tr>
                             </thead>
@@ -31,20 +32,25 @@
                                 @foreach ( $visitsdata['visits'] as $visit)
                                 <tr>
                                     <th scope="row">{{ $visit->id }}</th>
+                                    <td>{{ $visit->appointment->id ?? "N/A" }}</td>
                                     <td>{{ $visit->appointment->title ?? "N/A" }}</td>
                                     <td>{{ $visit->appointment->place ?? "office"}}</td>
-                                    <td>{{ $visit->doctor->user->username }}</td>
-                                    <td>{{ $visit->doctor->user->username }}</td>
+                                    <td>{{ $visit->doctor->user->username ?? "N/A"}}</td>
+                                    <td>{{ $visit->patient->user->username ?? "N/A" }}</td>
                                     <td>
-                                        @foreach ($visit->diagnosis as $diagnosis)
+                                        @forelse ($visit->diagnosis as $diagnosis)
                                         @if ($diagnosis->status)
-                                        <span class="badge badge-success">{{ $diagnosis->created_at->format('d m y') }} Processed </span>
+                                        <span class="badge badge-success">{{ $diagnosis->created_at->format('d m y') }}
+                                            Processed </span>
                                         @else
-                                        <span class="badge badge-warning">{{ $diagnosis->created_at->format('d m y') }} Pending </span>
+                                        <span class="badge badge-warning">{{ $diagnosis->created_at->format('d m y') }}
+                                            Pending </span>
                                         @endif
-                                        @endforeach
+                                        @empty
+                                        <span class="badge badge-info">No diagniosis made</span>
+                                        @endforelse
+
                                     </td>
-                                    <td>{{ $visit->hospital->name ?? "N/A" }}</td>
                                     <td>
                                         @if ($visit->status)
                                         <span class="badge badge-info">Open</span>
@@ -53,8 +59,11 @@
                                         <span class="badge badge-success">Closed</span>
                                         @endif
                                     </td>
-                                    <td><a href="{{ route('doctor.diagnoses.create',['visit'=>$visit->id]) }}"><span class="badge badge-dark"><i class="fa fa-file"></i> Make Diagnosis</span></a></td>
-                                    <td><a href="{{ route('doctor.visits.show',['visit'=>$visit->id]) }}"><i class="fa fa-eye"></i> View</a></td>
+                                    <td><a href="{{ route('doctor.diagnoses.create',['visit'=>$visit->id]) }}"><span
+                                                class="badge badge-dark"><i class="fa fa-file"></i> Make
+                                                Diagnosis</span></a></td>
+                                    <td><a href="{{ route('doctor.visits.show',['visit'=>$visit->id]) }}"><i
+                                                class="fa fa-eye"></i> View</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -15,6 +15,9 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (auth()->user()->role != 0 && auth()->user()->is_admin != true) {
+            return back()->with('You are not an admin');
+        }
         return $next($request);
     }
 }

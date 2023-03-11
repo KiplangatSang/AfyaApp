@@ -62,6 +62,7 @@ class RegisterController extends BaseController
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
@@ -83,6 +84,7 @@ class RegisterController extends BaseController
     //web registrations
     protected function create(array $data)
     {
+
         $user = User::firstOrCreate(
             [
                 'username' => $data['firstname'] . " " . $data['lastname'],
@@ -104,7 +106,6 @@ class RegisterController extends BaseController
             $result = $this->createUserAccounts($user);
         } catch (Exception $e) {
             info($e->getMessage());
-            dd($e->getMessage());
             return back()->with('error', "Failed to create associated accounts");
         }
 
@@ -149,11 +150,7 @@ class RegisterController extends BaseController
     public function doctorCreation(User $user)
     {
         # code...
-        $result =  $user->doctor()->create(
-            ['hospital_id'=>1,
-            ]
-        );
-        return $result;
+        return redirect('admin.doctors.create', ['user' => $user->id]);
     }
 
     public function patientCreation(User $user)
@@ -161,7 +158,7 @@ class RegisterController extends BaseController
         # code...
         $result =  $user->patient()->create(
             [
-                'hospital_id'=>1,
+                'hospital_id' => 1,
             ]
         );
         return $result;

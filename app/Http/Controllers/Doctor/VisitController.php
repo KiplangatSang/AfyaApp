@@ -25,7 +25,7 @@ class VisitController extends BaseController
     {
         //
         $visits = $this->doctor()->visits()
-            ->with('appointment')
+            ->whereHas('appointment')
             ->with('doctor.user')
             ->with('diagnosis')
             ->with('hospital')
@@ -87,7 +87,7 @@ class VisitController extends BaseController
         //
         $visit = $this->doctor()->visits()
             ->where('id', $id)
-            ->with('appointment')
+            ->whereHas('appointment')
             ->with('doctor.user')
             ->with('diagnosis')
             ->with('hospital')

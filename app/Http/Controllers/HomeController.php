@@ -25,10 +25,14 @@ class HomeController extends Controller
     {
 
         if (auth()->user()->role == 1) {
-           // dd(auth()->user()->with('patient')->first());
+            // dd(auth()->user()->with('patient')->first());
             return view('patient.home');
         } else if (auth()->user()->role == 2) {
             return view('doctor.home');
+        } else if (auth()->user()->role == 0 && auth()->user()->is_admin == true) {
+            return view('admin.home');
+        } else {
+            return back()->with('error', "The application cannot proceed because it cannot determine your role");
         }
     }
 }

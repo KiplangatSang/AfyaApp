@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('role');
+            $table->boolean('is_admin')->default(false);
             $table->string('phoneno');
             $table->boolean('terms_and_conditions');
             $table->rememberToken();

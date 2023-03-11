@@ -17,6 +17,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Doctor</th>
+                                    <th scope="col">Visit ID</th>
                                     <th scope="col">Visit</th>
                                     <th scope="col">Diagnosis</th>
                                     <th scope="col">Prescription</th>
@@ -31,6 +32,7 @@
                                 <tr>
                                     <th scope="row">{{ $diagnosis->id }}</th>
                                     <td>{{ $diagnosis->doctor->user->username ?? "N/A" }}</td>
+                                    <td>{{ $diagnosis->visit->id ?? "N/A" }}</td>
                                     <td>{{ $diagnosis->visit->appointment->title ?? "N/A" }} <span class="badge badge-info">on {{ $diagnosis->visit->created_at->format('d m Y') ?? "N/A" }}</span></td>
                                     <td>{{ $diagnosis->disease ?? "office"}}</td>
                                     <td>{{ $diagnosis->prescription }}</td>

@@ -20,7 +20,7 @@ class DiagnosisController extends BaseController
     public function index()
     {
         //
-        $diagnoses =  $this->patient()->diagnosis()->with('doctor.user')->with('visit.appointment')->get();
+        $diagnoses =  $this->patient()->diagnosis()->with('doctor.user')->whereHas('visit.appointment')->get();
         $diagnosesdata['diagnoses'] = $diagnoses;
         return view('patient.diagnosis.index', compact('diagnosesdata'));
     }
