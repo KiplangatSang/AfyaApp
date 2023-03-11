@@ -7,7 +7,7 @@ $patients = $createdata['patients'];
     <section>
         <!--donations header-->
         <div class="container-fluid mt-5">
-            <a href="{{ route('admin.donations.index') }}" class="btn btn-warning m-2">View Upcoming</a>
+            <a href="{{ route('admin.donations.index') }}" class="btn btn-warning m-2">View all</a>
         </div>
         <!--donations form-->
         <section class=" m-5" id="donations-form">

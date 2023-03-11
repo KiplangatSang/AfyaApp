@@ -10,7 +10,7 @@ $doctor = $doctordata['doctor']
             <a href="{{ route('admin.doctors.index') }}" class="btn btn-primary m-2">Back</a>
             <a href="{{ route('admin.doctors.edit',['doctor'=>$doctor->id]) }}" class="btn btn-info m-2">Edit</a>
             <a onclick="document.getElementById('doctor-delete-form').submit()" class="btn btn-danger m-2">Delete this
-                item</a>
+                account</a>
             <form id="doctor-delete-form" action="{{ route('admin.doctors.destroy',['doctor'=>$doctor->id]) }}"
                 class="d-none" method="POST">
                 @method("DELETE")

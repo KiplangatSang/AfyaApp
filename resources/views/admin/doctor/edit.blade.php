@@ -7,7 +7,7 @@ $doctor = $doctordata['doctor'];
     <section>
         <!--doctor header-->
         <div class="container-fluid mt-5">
-            <a href="{{ route('admin.doctors.index') }}" class="btn btn-warning m-2">View Upcoming</a>
+            <a href="{{ route('admin.doctors.index') }}" class="btn btn-warning m-2">View All</a>
         </div>
         <!--doctor form-->
         <section class=" m-5" id="doctor-form">

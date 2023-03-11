@@ -14,9 +14,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         //
-        User::factory(4)
-            ->hasPatient(4)
-            ->hasDoctor(5)
+        User::factory(1)
+            // ->hasPatient(4)
+            // ->hasDoctor(5)
             ->create();
     }
 }

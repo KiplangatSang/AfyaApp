@@ -5,7 +5,7 @@
         <!--donation header-->
         <div class="container-fluid mt-5">
             <a href="{{ route('admin.donations.create') }}" class="btn btn-info m-2">Make a Donation</a>
-            <a href="" class="btn btn-warning m-2">View Upcoming</a>
+            <a href="" class="btn btn-warning m-2">refresh</a>
         </div>
         <!--donation history-->
         <section>

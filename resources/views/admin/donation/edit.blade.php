@@ -7,7 +7,7 @@ $donation = $donationdata['donation']
     <section>
         <!--donation header-->
         <div class="container-fluid mt-5">
-            <a href="{{ route('admin.donations.index') }}" class="btn btn-warning m-2">View Upcoming</a>
+            <a href="{{ route('admin.donations.index') }}" class="btn btn-warning m-2">View all</a>
         </div>
         <!--donation form-->
         <section class=" m-5" id="donation-form">

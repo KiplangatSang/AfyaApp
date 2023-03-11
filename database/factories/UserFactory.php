@@ -41,7 +41,8 @@ class UserFactory extends Factory
         );
 
 
-        return $doctor;
+        //return $doctor;
+        return $admin;
     }
 
     /**

@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-outline mb-2">
+            <div class="form-outline mb-2 d-none">
                 <label class="form-label" for="role">Doctor role </label>
                 <input type="role" id="second-role"
                     class="form-control form-control-lg  @error('role') is-invalid @enderror" name="role" value="2"
@@ -110,18 +110,9 @@
 
             </div>
 
-            <div class="form-check">
-
-
-                @if (session()->has('terms_and_conditions'))
+            <div class="form-check d-none">
                 <input class="form-check-input me-2 @error('terms_and_conditions') is-invalid @enderror" type="checkbox"
                     value="Accepted" name="terms_and_conditions" checked />
-                @else
-                <input class="form-check-input me-2 @error('terms_and_conditions') is-invalid @enderror" type="checkbox"
-                    value="Accepted" id="user-terms_and_conditions" name="terms_and_conditions" />
-                @endif
-
-
                 <label class="form-check-label mt-1" for="form2Example3g">
                     I agree all statements in <a href="/terms_and_conditions" class="text-body"><u>Terms of
                             service</u></a>
@@ -135,7 +126,7 @@
 
             </div>
 
-            <div class="d-flex justify-content-center mt-2">
+            <div class="d-flex justify-content-center m-4">
                 <button type="submit" class="btn btn-outline-dark btn-block btn-lg gradient-custom-4 ">{{ __('Register')
                     }}</button>
             </div>
